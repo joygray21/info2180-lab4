@@ -1,5 +1,6 @@
 window.onload = function(){
     var sbtn = document.querySelector('.btn');
+    var rdiv = document.querySelector('#result')
     var xhr; 
 
     sbtn.onclick = function(element){
@@ -30,7 +31,8 @@ window.onload = function(){
             if(xhr.status === 200){
                 console.log("200");
                 var response = xhr.responseText;
-                alert(response);
+                //alert(response);
+                rdiv.innerHTML = response;
             }
             else {
                 console.log("Else");
