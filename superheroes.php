@@ -65,8 +65,37 @@ $superheroes = [
 
 ?>
 
-<ul>
+<!-- <ul>
 <?php foreach ($superheroes as $superhero): ?>
   <li><?= $superhero['alias']; ?></li>
 <?php endforeach; ?>
-</ul>
+</ul> -->
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if (isset($_POST['searchkey']) && !empty($_POST['searchkey'])){
+        $searchkey = filter_input(INPUT_POST, 'searchkey', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $found = false;
+        foreach ($superheroes as $superhero){
+            if (in_array($searchkey, $superhero)){ ?>
+                <h3><?= $superhero['alias']; ?></h3>
+                <h4><?= $superhero['name']; ?></h4>
+                <p><?= $superhero['biography']; ?></p> <?php
+                $found = true;
+                break;
+            }
+        }
+        if (!$found){
+            echo("Superhero not found");
+        }
+
+    }
+    else{?>
+        <ul>
+        <?php foreach ($superheroes as $superhero): ?>
+        <li><?= $superhero['alias']; ?></li>
+        <?php endforeach; ?>
+        </ul> 
+        <?php
+    }
+}

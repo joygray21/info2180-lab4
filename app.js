@@ -7,11 +7,15 @@ window.onload = function(){
         element.preventDefault();
 
         xhr = new XMLHttpRequest();
+        var searchkey = document.querySelector('#searchkey').value;
 
         var url =  "superheroes.php";
         xhr.onreadystatechange = printInfo;
-        xhr.open("GET", url);
-        xhr.send();
+        xhr.open("POST", url);
+
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.send('searchkey=' + encodeURIComponent(searchkey));
         console.log("After send");
         // fetch("superheroes.php")
         //     .then(response => response.text())
